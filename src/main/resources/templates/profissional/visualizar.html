@@ -1,0 +1,46 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Visualizar Profissional</title>
+    <meta charset="UTF-8"/>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="../../css/materialize.min.css" media="screen,projection"/>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+
+<body class="grey lighten-2">
+<div id="fichaDeProfissional" class="container">
+    <h3 class="main-title center">Ficha do Profissional</h3>
+    <div class="row">
+        <div class="section">
+            <h5>Dados do Profissional</h5>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="nome" type="text" th:field="${profissional.nome}" disabled="disabled"></input>
+                    <label for="nome">Nome</label>
+                </div>
+                <div class="input-field col s12">
+                    <input id="cargo" type="text" th:field="${profissional.cargo}"
+                           disabled="disabled"></input>
+                    <label for="cargo">Cargo</label>
+                </div>
+            </div>
+        </div>
+        <div class="input-field col s12 center">
+            <a th:href="@{'/profissional/listar'}" title="Voltar">
+                <i class="medium material-icons">arrow_back</i>
+            </a>
+            <a th:href="@{'/profissional/atualizar/'+${profissional.id}}" title="Editar Aluno">
+                <i class="medium material-icons">sync</i>
+            </a>
+            <a th:href="@{'/profissional/excluir/'+${profissional.id}}" title="Excluir Aluno">
+                <i class="medium material-icons">delete_forever</i>
+            </a>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../../js/materialize.min.js"></script>
+</body>
+</html>

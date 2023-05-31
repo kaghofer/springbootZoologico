@@ -1,0 +1,102 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Listar Serviços</title>
+    <meta charset="UTF-8"/>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="../../css/materialize.min.css" media="screen,projection"/>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+
+
+<body class="grey lighten-2">
+<div id="listaDeServicos">
+    <h3 class="main-title center">Lista de Servicos</h3>
+
+    <div class="container">
+        <nav>
+            <div class="nav-wrapper light-blue darken-3">
+                <form>
+                    <div class="input-field">
+                        <input id="search" type="search" required>
+                        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                        <i class="material-icons">close</i>
+                    </div>
+                </form>
+            </div>
+        </nav>
+    </div>
+    <table class="striped reponsive-table">
+        <thead>
+        <tr>
+            <th style="text-align: center;">Serviço</th>
+            <th style="text-align: center;">Data Cadastro</th>
+            <th style="text-align: center;">Data Efetuado</th>
+            <th style="text-align: center;">Profissional</th>
+            <th style="text-align: center;">Animal</th>
+        </tr>
+        </thead>
+        <tr th:each="servico : ${servicos}">
+            <td style="text-align: center;"><span th:text="${servico.descricao}"></span></td>
+            <td style="text-align: center;"><span class="datepicker" th:text="${servico.dataCadastro}"></span></td>
+            <td style="text-align: center"><span
+                    th:text="${servico.dataEfetuado == null} ? 'EM ABERTO' : ${servico.dataEfetuado}"></span></td>
+            <td style="text-align: center;"><span th:text="${servico.profissional.nome}"></span></td>
+            <td style="text-align: center;"><span th:text="${servico.animal.nome}"></span></td>
+            <td style="text-align: center;">
+                <a th:href="@{'/servico/visualizar/'+${servico.id}}" title="Visualizar">
+                    <p>Visualizar</p>
+                </a>
+                <div th:if="${servico.dataEfetuado == null}">
+                    <a th:href="@{'/servico/finalizar/'+${servico.id}}" title="Finalizar">
+                        <p>Finalizar</p>
+                    </a>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+<script type="text/javascript" src="../../js/materialize.min.js"></script>
+<script>
+
+
+    const searchInput = document.getElementById('search');
+
+    // Add event listener for 'keydown' event
+    searchInput.addEventListener('keydown', function(event) {
+        // Check if the pressed key is the Enter key (key code 13)
+        if (event.keyCode === 13) {
+            // Prevent the default form submission behavior
+            event.preventDefault();
+
+            // Perform the search or any other desired action
+            performSearch();
+        }
+    });
+
+    // Function to perform the search
+    function performSearch() {
+        // Get the search query from the input field
+        const searchQuery = searchInput.value;
+
+        // Perform the search
+        // Add your own code here to handle the search functionality
+        console.log('Searching for:', searchQuery);
+
+        var link;
+        if (searchQuery === null || searchQuery.trim() === '') {
+            link = "/servico/listar";
+        } else {
+            link = "/servico/filtrar/" + encodeURIComponent(searchQuery);
+        }
+
+        // Update the current URL without reloading the page
+        window.location.href = link;
+    }
+
+
+</script>
+</body>
+</html>
